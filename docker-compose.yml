@@ -1,0 +1,23 @@
+services:
+  api:
+    build: ./server
+    image: node
+    container_name: booking-node
+    ports:
+      - "80:8080"
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: database-mongo
+    expose:
+      - "27017"
+
+  client:
+    build: ./client
+    container_name: booking-react
+    ports: 
+      - "3001:3000"
+    depends_on:
+      - api
