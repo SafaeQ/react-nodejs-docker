@@ -1,0 +1,25 @@
+services:
+  mongo:
+    image: mongo
+    container_name: database-mongo
+    # ports:
+    #   - "27017:27017"
+    # environment:
+    #   - MONGO_INITDB_DATABASE: "hotel-booking-2"
+    networks:
+        - test_net
+  node:
+      build: .
+      container_name: booking-node
+      environment:
+        # NODE_ENV: production
+        PORT: 7000
+      ports:
+        - "7000:7000"
+      depends_on:
+        - mongo
+      networks:
+        - test_net
+
+networks:
+  test_net:
